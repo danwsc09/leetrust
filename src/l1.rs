@@ -6,10 +6,13 @@ impl Solution {
     pub fn two_sum(nums: Vec<i32>, target: i32) -> Vec<i32> {
         let mut hm: std::collections::HashMap<i32, i32> = std::collections::HashMap::new();
         for i in 0..nums.len() {
-            if let Some(j) = hm.get(&(target - nums[i])) {
-                return vec![i as i32, *j as i32];
+            match hm.get(&(target - nums[i])) {
+                Some(val) => return vec![*val as i32, i as i32],
+                None => {
+                    hm.insert(nums[i], i as i32);
+                    ()
+                }
             }
-            hm.insert(nums[i], i as i32);
         }
 
         vec![]
